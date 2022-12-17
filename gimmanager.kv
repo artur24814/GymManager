@@ -1,0 +1,448 @@
+<LoginWindow>:
+    login_field: login
+    password_field: password
+    BoxLayout:
+        padding: root.width * 0.1
+        orientation: 'vertical'
+        MDLabel:
+            text: "Login"
+            halign: 'center'
+            font_style: 'H3'
+            size_hint_y: .15
+        MDTextField:
+            id: login
+            font_size: root.height * 0.07
+            focus: True
+            write_tab: False
+            multiline: False
+            size_hint_y: .2
+        MDLabel:
+            halign: 'center'
+            font_style: 'H3'
+            text: "Password"
+            halign: 'center'
+            size_hint_y: .15
+        MDTextField:
+            id: password
+            font_size: root.height * 0.07
+            password: True
+            multiline: False
+            size_hint_y: .2
+        MDRaisedButton:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3 }
+            size_hint_x: .6
+            size_hint_y: None
+            height: root.height * 0.15
+            text: 'Submit'
+            on_press: root.check_user(root.login_field.text, root.password_field.text)
+    MDRectangleFlatButton:
+        text: '<--- Create new acount'
+        size_hint_y: None
+        height: root.height * 0.08
+        on_press:
+            root.manager.current = 'register'
+            root.manager.transition.direction = "right"
+
+<RegisterWindow>:
+    register_login: login
+    register_password: password
+    BoxLayout:
+        bold: True
+        orientation: 'vertical'
+        padding: root.width * 0.1
+        MDLabel:
+            text: "Login"
+            halign: 'center'
+            font_style: 'H3'
+            size_hint_y: .1
+        MDTextField:
+            id: login
+            font_size: root.height * 0.07
+            multiline: False
+            size_hint_y: .2
+        MDLabel:
+            halign: 'center'
+            font_style: 'H3'
+            text: "Password"
+            size_hint_y: .1
+        MDTextField:
+            id: password
+            font_size: root.height * 0.07
+            password: True
+            multiline: False
+            size_hint_y: .2
+        MDRaisedButton:
+            size_hint_x: .6
+            size_hint_y: .2
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3 }
+            md_bg_color: "green"
+            text: 'Create new user'
+            on_press: root.create_user(root.register_login.text, root.register_password.text)
+    MDRectangleFlatButton:
+        text: 'To login -->'
+        size_hint_y: .1
+        pos_hint: {'center_x': 0.92, 'center_y': 0.05 }
+        on_press:
+            root.manager.current = 'login'
+            root.manager.transition.direction = "left"
+
+<ListWindow>:
+    dayview: dayview
+
+    bottom_navigation: bottom_navigation
+    MDBottomNavigation:
+        first_item: first_item
+        second_item: second_item
+        name_day: name_day
+
+        id: bottom_navigation
+        #panel_color: "#eeeaea"
+        selected_color_background: "orange"
+        text_color_active: "lightgrey"
+
+        MDBottomNavigationItem:
+            scroll: scroll
+            id: first_item
+            name: 'screen 1'
+            text: 'HOME'
+            icon: 'home-variant'
+
+            MDScrollView:
+                dayview: dayview
+                id: scroll
+                DayView:
+                    id: dayview
+
+            BoxLayout:
+                MDRoundFlatIconButton:
+                    text: 'ADD new'
+                    icon: 'plus-circle'
+                    on_press:
+                        dayview.create_new_day(name_day.text)
+                        name_day.text = ''
+                MDTextField:
+                    id: name_day
+                    hint_text: "Day title"
+                    mode: "round"
+                    max_text_length: 15
+                    helper_text: "Massage"
+
+        MDBottomNavigationItem:
+            id: second_item
+            name: 'screen 2'
+            text: 'LIST'
+            icon: 'view-list'
+            # badge_icon: "numeric-5"
+
+            Tables:
+
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: 'TIMER'
+            icon: 'timer-star'
+
+            TimerLayout:
+
+<IconForDelete>:
+    on_press: app.root.get_screen('list').ids.bottom_navigation.first_item.scroll.dayview.delete_one_day(self.id)
+
+<MyListItemButton>:
+
+<DayDetailView>:
+    cardCard:cardCard
+    id: day_detail
+    BoxLayout:
+        orientation: 'vertical'
+        MDIconButton:
+            icon: "arrow-left-bold-box-outline"
+            size_hits: None, .22
+            on_press:
+                root.manager.current = 'list'
+                root.manager.transition.direction = "left"
+        MDCard:
+            id: cardCard
+            toolbar:toolbar
+            boxLabel: boxLabel
+
+            size_hint: .95, .78
+            focus_behavior: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+            unfocus_color: "#c6c1bf"
+            md_bg_color: "#c6c1bf"
+            focus_color: "#d0cbca"
+            elevation: 3
+            BoxLayout:
+                toolbar:toolbar
+                first_part:first_part
+                second_part:second_part
+                id: boxLabel
+                orientation: 'vertical'
+                MDTopAppBar:
+                    id: toolbar
+                    size_hint_y: .1
+                    title: "Your day"
+                    elevation: 4
+                    pos_hint: {'top': 1}
+                MDLabel:
+                    size_hint_y: .1
+                    font_size: self.height * 0.8
+                    font_name: 'Darling.ttf'
+                    text: "First part"
+                GridLayout:
+                    id: first_part
+                    name1: name1
+                    weight1: weight1
+                    repiat1: repiat1
+                    name1: name2
+                    weight1: weight2
+                    repiat1: repiat2
+                    name1: name3
+                    weight1: weight3
+                    repiat1: repiat3
+                    padding: 10
+                    size_hint_y: .25
+                    cols: 3
+                    MDTextFieldRect:
+                        id: name1
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight1
+                        max_text_length: 4
+                        size_hint_x: .2
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat1
+                        size_hint_x: .13
+                        font_size: self.height * .5
+                        hint_text: "Repite"
+                        mode: "round"
+                    MDTextFieldRect:
+                        id: name2
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight2
+                        max_text_length: 4
+                        size_hint_x: .2
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat2
+                        max_text_length: 4
+                        size_hint_x: .13
+                        hint_text: "Repite"
+                        mode: "round"
+                    MDTextFieldRect:
+                        id: name3
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight3
+                        size_hint_x: .2
+                        max_text_length: 4
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat3
+                        size_hint_x: .13
+                        hint_text: "Repite"
+                        mode: "round"
+
+                MDLabel:
+                    size_hint_y: .1
+                    font_size: self.height * 0.8
+                    font_name: 'Darling.ttf'
+                    text: "Second part"
+                GridLayout:
+                    id: second_part
+                    name1: name4
+                    weight1: weight4
+                    repiat1: repiat4
+                    name1: name5
+                    weight1: weight5
+                    repiat1: repiat5
+                    name1: name6
+                    weight1: weight6
+                    repiat1: repiat6
+                    padding: 10
+                    size_hint_y: .25
+                    cols: 3
+                    MDTextFieldRect:
+                        id: name4
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight4
+                        max_text_length: 4
+                        size_hint_x: .2
+                        max_text_length: 4
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat4
+                        size_hint_x: .13
+                        hint_text: "Repite"
+                        mode: "round"
+                    MDTextFieldRect:
+                        id: name5
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight5
+                        max_text_length: 4
+                        size_hint_x: .2
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat5
+                        size_hint_x: .13
+                        hint_text: "Repite"
+                        mode: "round"
+                    MDTextFieldRect:
+                        id: name6
+                        size_hint: .67, .5
+                        font_size: self.height * .4
+                        hint_text: "Name"
+                    MDTextField:
+                        id: weight6
+                        max_text_length: 4
+                        size_hint_x: .2
+                        font_size: self.height * .6
+                        hint_text: "Weight"
+                        mode: "round"
+                    MDTextField:
+                        id: repiat6
+                        size_hint_x: .13
+                        hint_text: "Repite"
+                        mode: "round"
+                MDRaisedButton:
+                    text: "SAVE"
+                    pos_hint: {"center_x": .5, "center_y": .25}
+                    on_press: root.save_day(root.ids.name1.text, root.ids.weight1.text,root.ids.repiat1.text, root.ids.name2.text, root.ids.weight2.text,root.ids.repiat2.text, root.ids.name3.text, root.ids.weight3.text,root.ids.repiat3.text, root.ids.name4.text, root.ids.weight4.text,root.ids.repiat4.text, root.ids.name5.text, root.ids.weight5.text,root.ids.repiat5.text, root.ids.name6.text, root.ids.weight6.text,root.ids.repiat6.text)
+
+<TimerLayout>
+    time_sec: time_sec
+    time_elipse: time_elipse
+    start_btn: start_btn
+    reset_btn: reset_btn
+    stop_btn: stop_btn
+    counter: counter
+    Image:
+        source: 'Bg.png'
+        allow_stretch: True
+        keep_ratio: False
+    Image:
+        pos: root.width/35, root.height/7
+        size: root.width/2, root.height/3
+        source: 'timer-removebg-preview.png'
+    Widget:
+        id: time_elipse
+        canvas.after:
+            Color:
+                rgba: 1,.3,0,.2
+            Ellipse:
+                group: 'a'
+                angle_start: 0
+                angle_end: 0
+                pos: root.width / 2 - self.width / 7.5, root.height/ 1.5 - self.height / 6.7
+                size: self.width / 3, self.height/6
+        canvas:
+            Color:
+                rgba: 0.027, 0.204, 0.435,1
+            Line:
+                points: 0, root.height * 0.31 , root.width, root.height * 0.31
+                width: 10
+    Label:
+        id: time_sec
+        font_size: root.height / 17
+        font_name: 'Sketch Gothic School.ttf'
+        text: '0'
+        color: 0,0,0,1
+        pos: root.width/35, root.height/7
+    Label:
+        id: minute
+        font_size: root.height / 15
+        font_name: 'Sketch Gothic School.ttf'
+        text: str(root.minutes) + ' min'
+        color: 0,0,0,1
+        pos: root.width/35, root.height/11
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, .1
+        pos_hint: {'x': 0, 'y': 0.35}
+        MDFillRoundFlatButton:
+            id: start_btn
+            size_hint: 4, 1
+            font_size: root.height / 17
+            text: 'start'
+            on_press: root.start()
+        MDFillRoundFlatButton:
+            id: stop_btn
+            disabled: True
+            size_hint: 3, 1
+            font_size: root.height / 19
+            text: 'stop'
+            md_bg_color: "red"
+            on_press: root.stop()
+        MDFillRoundFlatButton:
+            id: reset_btn
+            disabled: True
+            size_hint: 3, 1
+            md_bg_color: "orange"
+            font_size: root.height / 19
+            text: 'Reset'
+            on_press: root.reset()
+    Image:
+        pos: root.width/75, root.height * 0.02
+        size_hint: 1, .27
+        keep_ratio: False
+        allow_stretch: True
+        source: 'Big_timer.png'
+    TextInput:
+        id: counter
+        font_name: 'digital-7.ttf'
+        pos_hint: {'x': .1, 'y': .09}
+        disabled: True
+        font_size: root.height/ 15
+        text: '00.00.00'
+        size_hint: .6, .09
+    BoxLayout:
+        spacing: 5
+        orientation: 'vertical'
+        size_hint: .06, .05
+        pos_hint: {'x': .73, 'y': 0.08}
+        MDFillRoundFlatButton:
+            id: counter_start_btn
+            size_hint: 3, 1
+            text: 'start'
+            on_press: root.start_count()
+        MDFillRoundFlatButton:
+            id: counter_stop_btn
+            size_hint: 3, 1
+            text: 'stop'
+            disabled: True
+            on_press: root.stop_count()
+        MDFillRoundFlatButton:
+            id: counter_save_btn
+            size_hint: 3, 1
+            text: 'Save'
+            disabled: True
+            on_press: root.save_count()
+    Label:
+        font_size: root.height / 35
+        font_name: 'Sketch Gothic School.ttf'
+        text: "Counter training day"
+        color: .5,0,0,1
+        pos_hint: {'x': -.2, 'y': -.3}
