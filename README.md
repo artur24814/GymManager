@@ -43,7 +43,7 @@ Now let's go to the midle screen 'stats'
 
 <img src='https://user-images.githubusercontent.com/97242088/208270894-ac4f27a6-62e3-4c3b-a33b-7ffb27bc741d.png' alt='manage your day'>
 
-Here will be your stats from the day of the exercise, which will be saved thanks to the scrin we will see next.<br>
+Here will be your stats from the day of the exercise, which will be saved thanks to the screen we will see next.<br>
 Stats divided by days and will display the date and time spent in the gym. And then you will be able to see the average time spent in the gym
 
 <hr>
