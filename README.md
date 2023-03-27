@@ -1,4 +1,4 @@
-# GimManager
+# GymManager
 
 
 <img src='https://kivymd.readthedocs.io/en/1.0.1/_static/logo-kivymd.png' weight='300' height='300'>
@@ -6,7 +6,7 @@
 
 ## Contents
  * <a href="#info"><strong>Info</strong></a><p>Information about the resources used in this project</p>
- * <a href="#GimManager"><strong>Gim Manager</strong></a><p>Android app for manage your gym experience written in KIVY python framework</p>
+ * <a href="#GimManager"><strong>Gym Manager</strong></a><p>Android app for manage your gym experience written in KIVY python framework</p>
  * <a href="#clone_project"><strong>Clone and Run Project</strong></a><p>how run projects in your computer or in an telephone</p>
 
 <hr>
